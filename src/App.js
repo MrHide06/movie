@@ -1,7 +1,6 @@
 import React from 'react';
 
 import './App.scss';
-import logo from './logo.svg';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Header from './Components/Header'
 

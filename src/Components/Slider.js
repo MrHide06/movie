@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Carousel } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import { getDataSlider } from '../Action/SliderAction'
 import Photo1 from '../images/First-Reformed.webp'
-import Photo2 from '../images/poster_film_dilan.jpeg'
-import Photo3 from '../images/preman-pensiun.jpg'
+// import Photo2 from '../images/poster_film_dilan.jpeg'
+// import Photo3 from '../images/preman-pensiun.jpg'
 
-function Slider() {
+function Slider(props) {
+
+    useEffect(() => {
+        props.getDataSlider()
+    }, [])
+    
+    console.log('props', props)
     return (
         <div>
             <Carousel className="carousel">
                 <Carousel.Item className="carouselItem">
+                {/* {props.slider.map((item, index) => ( */}
                     <img
                     className="d-block w-100"
                     src={Photo1}
@@ -16,26 +25,22 @@ function Slider() {
                     height={350}
                     alt="First slide"
                     />
-                </Carousel.Item>
-                <Carousel.Item className="carouselItem">
-                    <img
-                    className="d-block w-100"
-                    src={Photo2}
-                    height={350}
-                    alt="Third slide"
-                    />
-                </Carousel.Item>
-                <Carousel.Item className="carouselItem">
-                    <img
-                    className="d-block w-100"
-                    src={Photo3}
-                    height={350}
-                    alt="Third slide"
-                    />
+                {/* ))} */}
                 </Carousel.Item>
             </Carousel>
         </div>
     )
 }
 
-export default Slider
+const mapStateToProps = state => {
+    console.log("slider",state)
+    return {
+        slider: state.getSlider.data
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getDataSlider: () => dispatch(getDataSlider()),
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Slider)
